@@ -24,6 +24,7 @@ async function displayWorks() {
     // on rempli les valeurs pour l'image
     image.src = work.imageUrl;
     image.alt = work.title;
+    element.dataset.category = work.category.name;
     // de même pour le figcaption
     figcaption.textContent = work.title;
     // on ajoute l'image et le figcaption au parent "figure"
@@ -33,13 +34,6 @@ async function displayWorks() {
     gallery.appendChild(element);
   });
 }
-  
-// Lancement de la fonction qui vide la gallery
-hideAllProjects();
-  
-// Lancement de la fonction créant les éléments dans la gallery via l'API
-displayWorks();
-
 
 // Récupération des catégories via l'API
 async function getCategories() {
@@ -55,6 +49,7 @@ async function createButtons() {
   // Création du bouton "Tous"
   let buttonAll = document.createElement("button");
   buttonAll.textContent = "Tous";
+  buttonAll.classList.add("active");
   filtresDOM.appendChild(buttonAll);
   // On boucle sur les categories
   categories.forEach(categorie => {
@@ -62,20 +57,38 @@ async function createButtons() {
     button.textContent = categorie.name
     filtresDOM.appendChild(button);
   })
+  let buttons = filtresDOM.querySelectorAll("button");
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      buttons.forEach(button => button.classList.remove("active"));
+      button.classList.add("active");
+      filtresAction(button.textContent);
+    });
+  });
 }
+
+function filtresAction(category) {
+  const works = document.querySelectorAll(".gallery figure");
+  works.forEach(work => {
+    if (category === "Tous") {
+      work.style.display = "block";
+      return;
+    }
+    if (category === work.dataset.category) {
+      work.style.display = "block";
+    } else { 
+      work.style.display = "none";
+     }
+  })
+}
+
+// Lancement de la fonction qui vide la gallery
+hideAllProjects();
+  
+// Lancement de la fonction créant les éléments dans la gallery via l'API
+displayWorks();
 
 // Lancement de la fonction créant les boutons
 createButtons();
 
 
-// Sélection des boutons et ajout de l'événement
-document.addEventListener("click", function activeButton() {
-  let buttons = document.querySelectorAll("button");
-// Boucle "button active"
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      buttons.forEach(button => button.classList.remove("active"));
-      button.classList.add("active");
-    });
-  });
-});
