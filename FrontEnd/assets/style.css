@@ -93,6 +93,11 @@ h2 {
 	color: #1D6154
 }
 
+#error-message {
+	color: red;
+	margin-top: 15px;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;
