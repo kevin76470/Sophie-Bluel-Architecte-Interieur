@@ -1,0 +1,25 @@
+const form = document.getElementById("login");
+const errorMessage = document.getElementById("error-message");
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault(); // Empêche le rechargement de la page lors de la soumission du formulaire
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    fetch("http://localhost:5678/api/users/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: email, password: password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Response data:", data);
+        if (data.token) {
+            localStorage.setItem("token", data.token);
+            window.location.href = "./index.html";
+        } else {
+            errorMessage.textContent = "Email ou mot de passe incorrect.";
+        }
+    })  
+});
