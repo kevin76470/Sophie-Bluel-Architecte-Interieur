@@ -13,6 +13,7 @@
 		<script src="https://kit.fontawesome.com/45d26557b2.js" crossorigin="anonymous"></script>
 		<script src="works.js" defer></script>			
 		<script src="edit.js" defer></script>
+		<script src="logout.js"></script>
 	</head>
 	<body>
 		<div id="editBar">
@@ -25,7 +26,8 @@
 			<ul>
 				<a href="index.html"><li>projets</li></a>
 				<a href="#contact"><li>contact</li></a>
-				<a href="login.html"><li>login</li></a>
+				<a id="login-link" href="login.html"><li>login</li></a>
+				<a id="logout-link" href="index.html"><li>logout</li></a>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -113,7 +115,22 @@
 			</form>
 		</section>
 	</main>
-	diag
+	<dialog>
+		<div class="dialog-container">
+			<div class="icon-x">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+			<p>Galerie photo</p>
+			<div class="works">
+				Test
+			</div>
+			<div class="ajout-photo">
+				<form>
+					<button>Ajouter une photo</button>
+				</form>
+			</div>
+		</div>
+	</dialog>
 	<footer>
 		<nav>
 			<ul>
