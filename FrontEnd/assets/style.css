@@ -62,8 +62,7 @@ body {
 }
 
 #editBar {
-	display: none;
-	display: flex;
+	display: none;	
 	background-color: black;
 	height: 60px;
 	justify-content: center;
@@ -137,6 +136,10 @@ li:hover {
 	color: #B1663C;
 }
 
+#logout-link {
+	display: none;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -181,6 +184,7 @@ li:hover {
 }
 
 .modifier p {
+	cursor: pointer;
 	margin-left: 10px;
 }
 
@@ -223,6 +227,60 @@ button.active {
 
 .gallery img {
 	width: 100%;
+}
+
+dialog {
+	width: 750px;
+	border: none;
+	border-radius: 10px;
+	padding: 0;
+}
+
+.dialog-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px;
+}
+
+dialog .icon-x {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+dialog i {
+	cursor: pointer;
+	font-size: 20px;
+}
+
+dialog .works {
+	width: 75%;
+	margin-bottom: 20px;
+	padding: 50px;
+	border-bottom: solid;
+	border-width: 1px;
+	border-color: #B3B3B3;
+	display: flex;
+	justify-content: center;
+}
+
+dialog p {
+	font-size: 26px;
+	padding: 20px;
+}
+
+dialog form {
+	padding: 20px;
+}
+
+dialog button {
+	width: 250px;
+	background-color:#1D6154;
+	color: white;
+	outline: none;
+	font-size: 14px;
 }
 
 #contact, #login {
