@@ -257,22 +257,52 @@ dialog i {
 
 dialog .works {
 	width: 75%;
-	margin-bottom: 20px;
-	padding: 50px;
+	padding-bottom: 75px;
 	border-bottom: solid;
 	border-width: 1px;
 	border-color: #B3B3B3;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 30px 10px;
+}
+
+.works figure {
+	position: relative;
+}
+
+.works img {
+	max-width: 100%;
+	height: auto;
+}
+
+.delete-icon-container {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: black;
+	border-radius: 2px;
+	width: 17px;
+	height: 17px;
+	font-size: 10px;
+	color: white;
 	display: flex;
+	align-items: center;
 	justify-content: center;
+}
+
+.delete-icon {
+	font-size: 10px;
+	color: white;
 }
 
 dialog p {
 	font-size: 26px;
-	padding: 20px;
+	padding: 20px 0px 40px 0px;
 }
 
 dialog form {
 	padding: 20px;
+	margin-top: 20px;
 }
 
 dialog button {
