@@ -3,8 +3,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const modifier = document.querySelector(".modifier");
     const token = localStorage.getItem("token");
     const dialog = document.querySelector("dialog");
-    const closeIcon = document.querySelector(".fa-xmark");
+    const closeIcons = document.querySelectorAll(".fa-xmark");
+    const arrowLeft = document.querySelector(".fa-arrow-left");
     const worksDiv = document.querySelector(".works");
+    const ajoutPhoto = document.querySelector(".ajout-photo");
+    const dialogContainer = document.querySelector(".dialog-container");
+    const dialogAddWorks = document.querySelector(".dialog-add-works");
+    const photoCategorySelect = document.querySelector("#photo-category");
+    const addPhotoForm = document.querySelector(".add-photo-form");
+
 
     if (token) {
         editBar.style.display = "flex";
@@ -16,15 +23,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    closeIcon.addEventListener("click", function() {
-        dialog.style.display = "none";
-        dialog.close();
+    function resetModal() {
+        dialogContainer.style.display = "flex";
+        dialogAddWorks.style.display = "none";
+    }
+
+    closeIcons.forEach(icon => {
+        icon.addEventListener("click", function() {
+            dialog.style.display = "none";
+            dialog.close();
+            resetModal();
+        });
     });
 
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape" || event.key === 27) {
             dialog.style.display = "none";
             dialog.close();
+            resetModal();
         }
     });
 
@@ -32,7 +48,24 @@ document.addEventListener("DOMContentLoaded", function() {
         if (event.target === dialog) {
             dialog.style.display = "none";
             dialog.close();
+            resetModal();
         }
+    });
+
+    ajoutPhoto.addEventListener("click", function() {
+        dialogContainer.style.display = "none";
+        dialogAddWorks.style.display = "flex";
+        fetchCategories();
+    });
+
+    arrowLeft.addEventListener("click", function() {
+        dialogContainer.style.display = "flex";
+        dialogAddWorks.style.display = "none";
+    });
+
+    addPhotoForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        postNewWork();
     });
 
     async function fetchWorks() {
@@ -66,6 +99,21 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    async function fetchCategories() {
+            const response = await fetch("http://localhost:5678/api/categories");
+            const categories = await response.json();
+            photoCategorySelect.innerHTML = "";
+            let defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            photoCategorySelect.appendChild(defaultOption);
+            categories.forEach(category => {
+                let option = document.createElement("option");
+                option.value = category.id;
+                option.textContent = category.name;
+                photoCategorySelect.appendChild(option);
+            });
+    }   
+
     async function getProjets() {
         const response = await fetch("http://localhost:5678/api/works");
         const works = await response.json();
@@ -73,23 +121,38 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     async function deleteWork(id) {
-        console.log(`Tentative de suppression du projet avec id: ${id}`);
         const response = await fetch(`http://localhost:5678/api/works/${id}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             }
         });
 
         if (response.ok) {
-            console.log(`Projet avec id ${id} supprimé`);
             fetchWorks();
-
             await refreshGallery();
-            
-        } else {
-            console.error(`Erreur de suppression : ${response.status} - ${response.statusText}`);
+        } 
+    }
+
+    async function postNewWork() {
+        const formData = new FormData();
+        formData.append("image", document.querySelector("#ajouter-photo").files[0]);
+        formData.append("title", document.querySelector("#photo-title").value);
+        formData.append("category", document.querySelector("#photo-category").value);
+    
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            await refreshGallery(); 
+            resetModal();
+            dialog.style.display = "none";
+            dialog.close();
         }
     }
 });
