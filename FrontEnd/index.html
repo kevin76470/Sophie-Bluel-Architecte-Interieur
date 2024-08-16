@@ -123,11 +123,26 @@
 			<p>Galerie photo</p>
 			<div class="works">
 			</div>
-			<div class="ajout-photo">
-				<form>
-					<button>Ajouter une photo</button>
-				</form>
+			<button class="ajout-photo">Ajouter une photo</button>
+		</div>
+		<div class="dialog-add-works">
+			<div class="icon-x">
+				<i class="fa-solid fa-arrow-left"></i>
+				<i class="fa-solid fa-xmark"></i>
 			</div>
+			<p>Ajout photo</p>
+			<form class="add-photo-form">
+			<label for="ajouter-photo">Ajouter photo</label>
+			<input type="file" id="ajouter-photo" name="ajouter-photo">
+			
+			<label for="photo-title">Titre</label>
+			<input type="text" id="photo-title" name="photo-title">
+
+			<label for="photo-category">Catégorie</label>
+			<select id="photo-category" name="photo-category"></select>
+
+			<input type="submit" value="Valider">
+			</form>
 		</div>
 	</dialog>
 	<footer>
