@@ -62,7 +62,7 @@ body {
 }
 
 #editBar {
-	display: none;	
+	display: none;
 	background-color: black;
 	height: 60px;
 	justify-content: center;
@@ -244,9 +244,23 @@ dialog {
 	padding: 30px;
 }
 
-dialog .icon-x {
+.dialog-add-works {
+	width: 100%;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px;
+}
+
+.dialog-container .icon-x {
 	display: flex;
 	justify-content: flex-end;
+	width: 100%;
+}
+
+.dialog-add-works .icon-x {
+	display: flex;
+	justify-content: space-between;
 	width: 100%;
 }
 
@@ -258,6 +272,7 @@ dialog i {
 dialog .works {
 	width: 75%;
 	padding-bottom: 75px;
+	margin-bottom: 25px;
 	border-bottom: solid;
 	border-width: 1px;
 	border-color: #B3B3B3;
@@ -300,17 +315,18 @@ dialog p {
 	padding: 20px 0px 40px 0px;
 }
 
-dialog form {
-	padding: 20px;
-	margin-top: 20px;
-}
-
 dialog button {
 	width: 250px;
 	background-color:#1D6154;
 	color: white;
 	outline: none;
 	font-size: 14px;
+}
+
+.dialog-add-works form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
 #contact, #login {
