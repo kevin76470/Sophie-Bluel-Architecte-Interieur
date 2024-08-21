@@ -1,99 +1,91 @@
 // Vider le parent .gallery
 function hideAllProjects() {
-  document.querySelector('.gallery').innerHTML = "";
+  document.querySelector(".gallery").innerHTML = "";
 }
 
 // Récupérer et renvoyer les works issus de l'API
 async function getProjets() {
-  const response = await fetch('http://localhost:5678/api/works');
-  const works = await response.json();
-  return works;
+  const response = await fetch("http://localhost:5678/api/works");
+  return response.json(); // Retourne directement les données JSON
 }
 
 // Gérer l'affichage des works 
 async function displayWorks() {
-  const gallery = document.querySelector('.gallery');
+  const gallery = document.querySelector(".gallery");
   const works = await getProjets();
 
-  // On boucle sur les works, on stock la valeur du work en cours dans la variable "work"
   works.forEach(work => {
-      // on créé les élements du DOM dont on a besoin
-      let element = document.createElement('figure');
-      let image = document.createElement('img');
-      let figcaption = document.createElement('figcaption');
-      // on rempli les valeurs pour l'image
+      const element = document.createElement("figure");
+      const image = document.createElement("img");
+      const figcaption = document.createElement("figcaption");
+
       image.src = work.imageUrl;
       image.alt = work.title;
       element.dataset.category = work.category.name;
-      // de même pour le figcaption
       figcaption.textContent = work.title;
-      // on ajoute l'image et le figcaption au parent "figure"
+
       element.appendChild(image);
       element.appendChild(figcaption);
-      // on ajoute le figure à la liste dans ".gallery"
       gallery.appendChild(element);
   });
 }
 
 // Récupération des catégories via l'API
 async function getCategories() {
-  const response = await fetch('http://localhost:5678/api/categories');
-  const categories = await response.json();
-  return categories;
+  const response = await fetch("http://localhost:5678/api/categories");
+  return response.json(); // Retourne directement les données JSON
 }
 
 // Création des boutons
 async function createButtons() {
   const categories = await getCategories();
   const filtresDOM = document.querySelector(".filtres");
-
-  // Vider les filtres existants pour éviter les doublons
+  
+  // Vider les filtres existants
   filtresDOM.innerHTML = '';
 
   // Création du bouton "Tous"
-  let buttonAll = document.createElement("button");
+  const buttonAll = document.createElement("button");
   buttonAll.textContent = "Tous";
   buttonAll.classList.add("active");
   filtresDOM.appendChild(buttonAll);
 
-  // On boucle sur les categories
+  // Création des boutons pour chaque catégorie
   categories.forEach(categorie => {
-      let button = document.createElement("button");
+      const button = document.createElement("button");
       button.textContent = categorie.name;
       filtresDOM.appendChild(button);
-  });
-
-  let buttons = filtresDOM.querySelectorAll("button");
-  buttons.forEach(button => {
+      
+      // Gestion de l'événement pour chaque bouton
       button.addEventListener("click", () => {
-          buttons.forEach(button => button.classList.remove("active"));
-          button.classList.add("active");
-          filtresAction(button.textContent);
+          handleFilterButtonClick(button, filtresDOM);
       });
   });
 }
 
+// Gestion de l'action des filtres
+function handleFilterButtonClick(button, filtresDOM) {
+  const buttons = filtresDOM.querySelectorAll("button");
+  
+  buttons.forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+  filtresAction(button.textContent);
+}
+
+// Filtrer les travaux selon la catégorie sélectionnée
 function filtresAction(category) {
   const works = document.querySelectorAll(".gallery figure");
   works.forEach(work => {
-      if (category === "Tous") {
-          work.style.display = "block";
-      } else if (category === work.dataset.category) {
-          work.style.display = "block";
-      } else {
-          work.style.display = "none";
-      }
+      work.style.display = (category === "Tous" || category === work.dataset.category) ? "block" : "none";
   });
 }
 
+// Rafraîchir la galerie
 async function refreshGallery() {
   hideAllProjects();
   await displayWorks();
   await createButtons();
 }
 
-hideAllProjects();
-displayWorks();
-createButtons();
-
-
+// Appel de la fonction pour rafraîchir la galerie au chargement
+refreshGallery();
