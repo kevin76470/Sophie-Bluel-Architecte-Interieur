@@ -329,6 +329,20 @@ dialog button {
 	gap: 15px;
 }
 
+input[type="submit"].disabled {
+    background-color: #A7A7A7;
+	color: white;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+input[type="submit"].enabled {
+    background-color: #1D6154;
+    color: white;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
 #contact, #login {
 	width: 50%;
 	margin: auto;
