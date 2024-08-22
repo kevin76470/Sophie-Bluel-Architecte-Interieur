@@ -36,9 +36,9 @@ function showDialog() {
     });
 
     function closeDialog() {
+        resetModal();
         dialog.style.display = "none";
         dialog.close();
-        resetModal();
     }
 }
 
@@ -46,10 +46,16 @@ function resetModal() {
     const dialogContainer = document.querySelector(".dialog-container");
     const dialogAddWorks = document.querySelector(".dialog-add-works");
     const addPhotoForm = document.querySelector(".add-photo-form");
+    const previewContainer = document.querySelector(".image-preview-container");
+    const uploadContainer = document.querySelector(".photo-upload-container");
 
     dialogContainer.style.display = "flex";
     dialogAddWorks.style.display = "none";
     addPhotoForm.reset();
+
+    previewContainer.innerHTML = '';
+    previewContainer.style.display = "none";
+    uploadContainer.style.display = "flex";
     checkFormValidity();
 }
 
@@ -62,15 +68,17 @@ function checkFormValidity() {
     if (photoInput.files.length > 0 && titleInput.value.trim() !== "" && categorySelect.value !== "") {
         submitButton.classList.add("enabled");
         submitButton.classList.remove("disabled");
-        submitButton.disabled = false;
     } else {
         submitButton.classList.add("disabled");
         submitButton.classList.remove("enabled");
-        submitButton.disabled = true;
     }
 }
 
-document.getElementById('ajouter-photo').addEventListener("change", checkFormValidity);
+document.getElementById("ajouter-photo").addEventListener("change", function(event) {
+    checkFormValidity();
+    handleImagePreview(event);
+});
+
 document.getElementById('photo-title').addEventListener("input", checkFormValidity);
 document.getElementById('photo-category').addEventListener("change", checkFormValidity);
 
@@ -181,3 +189,31 @@ async function postNewWork() {
         dialog.close();
     }
 }
+
+function handleImagePreview(event) {
+    const previewContainer = document.querySelector(".image-preview-container");
+    const uploadContainer = document.querySelector(".photo-upload-container");
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.classList.add("preview-image");
+
+            previewContainer.innerHTML = ''; 
+            previewContainer.appendChild(img);
+            previewContainer.style.display = "flex";
+
+            uploadContainer.style.display = "none";
+        };
+        reader.readAsDataURL(file);
+    } else {
+        previewContainer.innerHTML = '';
+        previewContainer.style.display = "none";
+        uploadContainer.style.display = "flex";
+    }
+}
+
+checkFormValidity();
