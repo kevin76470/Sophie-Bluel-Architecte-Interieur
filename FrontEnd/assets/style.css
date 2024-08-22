@@ -272,7 +272,7 @@ dialog i {
 dialog .works {
 	width: 75%;
 	padding-bottom: 75px;
-	margin-bottom: 25px;
+	margin-bottom: 35px;
 	border-bottom: solid;
 	border-width: 1px;
 	border-color: #B3B3B3;
@@ -329,23 +329,115 @@ dialog button {
 	gap: 15px;
 }
 
+.add-photo-form {
+	width: 75%;
+}
+
+.photo-upload-container {
+    background-color: #E8F1F6;
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.photo-upload-container p {
+	font-size: 10px;
+	padding: 0;
+}
+
+.photo-upload-container label {
+	color: #306685;
+	font-weight: 500;
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	padding: 12.5px;
+	cursor: pointer;
+	width: 150px;
+	text-align: center;
+}
+
+.image-preview-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #E8F1F6;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 200px;
+}
+
+#ajouter-photo {
+	display: none;
+}
+
+.fa-image {
+	color: #B9C5CC;
+	cursor: default;
+}
+
+.fa-image::before {
+	font-size: 70px;
+}
+
+#preview-image {
+	display: flex;
+}
+
+.image-preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+#photo-title, #photo-category {
+	height: 50px;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.input-field {
+	font-family: 'Work Sans';
+	font-size: 14px;
+}
+
+.input-field:focus {
+	font-family: 'Work Sans';
+	font-weight: 400;
+}
+
+input[type="submit"].valider {
+	width: 250px;
+	padding: 10px 25px 10px 25px;
+	font-size: 14px;
+	border: none;
+	margin-bottom: 0px;
+}
+
 input[type="submit"].disabled {
-    background-color: #A7A7A7;
-	color: white;
     cursor: not-allowed;
-    pointer-events: none;
+	background-color: #A7A7A7;
+	color: white;
 }
 
 input[type="submit"].enabled {
     background-color: #1D6154;
-    color: white;
     cursor: pointer;
-    pointer-events: auto;
+}
+
+.middle-border	 {
+	border-top: solid;
+    border-width: 1px;
+    border-color: #B3B3B3;
+	margin-top: 40px;	
 }
 
 #contact, #login {
 	width: 50%;
-	margin: auto;
+	margin: auto;	
 }
 
 #contact > *, #login > * {
@@ -374,9 +466,13 @@ input[type="submit"].enabled {
 	margin: 2em 0 1em 0;
 }
 
-#contact textarea, #login input {
+#contact textarea, #login input, #photo-title, #photo-category {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.se-connecter, .envoyer {
+	cursor: pointer;
 }
 
 #login p {
