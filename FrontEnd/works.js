@@ -58,8 +58,13 @@ async function createButtons() {
       
       // Gestion de l'événement pour chaque bouton
       button.addEventListener("click", () => {
-          handleFilterButtonClick(button, filtresDOM);
-      });
+        handleFilterButtonClick(button, filtresDOM);
+      }); 
+      
+      // Gestion de l'événement pour le bouton "Tous"
+      buttonAll.addEventListener("click", () => {
+        handleFilterButtonClick(buttonAll, filtresDOM);
+    });
   });
 }
 
