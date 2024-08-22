@@ -111,7 +111,7 @@
 				<input type="email" name="email" id="email">
 				<label for="message">Message</label>
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
-				<input type="submit" value="Envoyer">
+				<input type="submit" value="Envoyer" class="envoyer">
 			</form>
 		</section>
 	</main>
@@ -132,16 +132,21 @@
 			</div>
 			<p>Ajout photo</p>
 			<form class="add-photo-form">
-			<label for="ajouter-photo">Ajouter photo</label>
-			<input type="file" id="ajouter-photo" name="ajouter-photo">
-			
-			<label for="photo-title">Titre</label>
-			<input type="text" id="photo-title" name="photo-title">
-
-			<label for="photo-category">Catégorie</label>
-			<select id="photo-category" name="photo-category"></select>
-
-			<input type="submit" value="Valider">
+				<div class="photo-upload-container">
+					<i class="fa-regular fa-image"></i>
+					<label for="ajouter-photo">+ Ajouter photo</label>
+					<input type="file" id="ajouter-photo" name="ajouter-photo">
+					<p>jpg, png : 4mo max</p>
+				</div>
+				<div class="image-preview-container">
+				</div>
+				<label for="photo-title">Titre</label>
+				<input type="text" id="photo-title" name="photo-title" class="input-field">
+				<label for="photo-category">Catégorie</label>
+				<select id="photo-category" name="photo-category" class="input-field"></select>
+				<div class="middle-border">
+				</div>
+				<input type="submit" value="Valider" class="valider">
 			</form>
 		</div>
 	</dialog>
